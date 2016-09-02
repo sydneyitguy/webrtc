@@ -30,6 +30,7 @@
           number        : form.username.value || "Anonymous", // listen on username line else Anonymous
           publish_key   : 'pub-c-99bfe32b-04e0-4067-961a-f28410406a6e',
           subscribe_key : 'sub-c-37e5c210-7107-11e6-91d9-02ee2ddab7fe',
+          ssl : (('https:' == document.location.protocol) ? true : false)
       });
       phone.ready(function(){ form.username.style.background="#55ff5b"; });
       phone.receive(function(session){
