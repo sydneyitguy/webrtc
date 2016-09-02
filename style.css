@@ -1,0 +1,12 @@
+.vid-box {
+  width: 100%;
+  max-width: 400px;
+  height: 200px;
+}
+.status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: red;
+}
