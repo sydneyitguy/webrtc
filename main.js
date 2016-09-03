@@ -36,7 +36,7 @@ function login() {
   phone.receive(function(session){
       session.connected(function(session) {
         console.log('<-- Call received');
-        $videoBox.append(session.video);
+        $videoBox.prepend(session.video);
         setVideoStatus('#0F9D58');
 
         addChatBubble('them', '화상 전화 연결 완료.');
@@ -209,6 +209,7 @@ function videoTemplate(fileName) {
 $videoBox.on('click', '#status', function() {
   phone.hangup();
   setVideoStatus('#FFCF15');
+  phone.dial(isHost ? 'guest' : 'host');
 });
 
 $('#chat-buttons button').click(function() {
