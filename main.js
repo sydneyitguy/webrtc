@@ -111,7 +111,10 @@ function addChatBubble(className, text) {
 var map;
 function initMap() {
   console.log('Initialize maps');
+  var isDraggable = $(document).width() > 480 ? true : false;
+
   map = new google.maps.Map(document.getElementById('map'), {
+    draggable: isDraggable,
     center: { lat: 37.4492881, lng: 126.5940125 },
     zoom: 10
   });
