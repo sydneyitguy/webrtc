@@ -33,5 +33,5 @@ function makeCall() {
 }
 
 $(function() {
-  login();
+  // login();
 });
