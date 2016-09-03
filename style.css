@@ -1,10 +1,3 @@
-@media screen and (min-width: 480px) {
-  .map, .vid-box, .chat {
-    width: 100%;
-    max-width: 480px;
-  }
-}
-
 html, body {
   margin: 0;
   width:100%;
@@ -12,6 +5,11 @@ html, body {
   background: white;
   font: 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+b {
+  color: #D04F3B;
+}
+
 .map, .vid-box, .chat {
   position: relative;
   width: 33.33333333%;
@@ -45,6 +43,58 @@ html, body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.chat-buttons {
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  width: 100%;
+  padding: 10px 0 18px 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: #efefef;
+  white-space:nowrap;
+}
+.chat-buttons button {
+  display: inline-block;
+  margin: 2px;
+  width: 100px;
+  height: 40px;
+  vertical-align: top;
+  outline: none;
+}
+
+.chat-buttons button {
+  cursor: pointer;
+  color: #fff;
+  background-color: #6496c8;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px #27496d;
+}
+.chat-buttons button.red {
+  background-color: #D04F3B;
+  box-shadow: 0 8px #943324;
+}
+
+.chat-buttons button:hover {
+  background-color: #417cb8;
+}
+
+.chat-buttons button:active {
+  background-color: #417cb8;
+  box-shadow: 0 5px #27496d;
+  transform: translateY(5px);
+}
+
+.chat-buttons button.red:hover {
+  background-color: #bd412e;
+}
+
+.chat-buttons button.red:active {
+  background-color: #bd412e;
+  box-shadow: 0 5px #943324;
+}
+
 .chat-in-container {
   position: absolute;
   bottom: 0;
@@ -54,7 +104,6 @@ html, body {
   border: 2px solid #ddd;
   height: 40px;
   width: 100%;
-  background-color: #efefef;
 }
 .chat-in-container input {
   margin: 0;
@@ -113,4 +162,16 @@ html, body {
   height: 1em;
   border-left: 0.5em solid #1289fe;
   border-bottom-left-radius: 1em 0.5em;
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 480px) {
+  .map, .vid-box, .chat {
+    width: 100%;
+    max-height: 260px;
+  }
+
+  .chat-buttons {
+    display: none;
+  }
 }

@@ -38,7 +38,10 @@ function login() {
         console.log('<-- Call received');
         $videoBox.append(session.video);
         setVideoStatus('#0F9D58');
+
+        addChatBubble('them', '화상 전화 연결 완료.');
         addMapMarkersForDemo();
+        addLocationDefinedMessageForDemo();
       });
       session.ended(function(session) {
         console.log('--> Call ended');
@@ -50,22 +53,10 @@ function login() {
   return false;
 }
 
-function addMapMarkersForDemo() {
-  if (isHost) {
-    addInfoWindow({ lat: 37.374804, lng: 126.667955 }, "신고자 위치");
-  } else {
-    addInfoWindow({ lat: 37.390786, lng: 126.651902 }, "송도 119 안전센터");
-  }
-}
-
 function setVideoStatus(color) {
   $('#status').css('background-color', color);
 }
 
-$videoBox.on('click', function() {
-  phone.hangup();
-  setVideoStatus('#FFCF15');
-});
 
 // MARK: - Chatting
 
@@ -88,9 +79,7 @@ pubnub.subscribe({
         return;
       }
 
-      chatOut.innerHTML = chatOut.innerHTML +
-        '<p class="' + (message.isHost == isHost ? 'me' : 'them') + '">' + message.text + '</p>';
-      chatOut.scrollTop = chatOut.scrollHeight;
+      addChatBubble((message.isHost == isHost ? 'me' : 'them'), message.text);
     }
 });
 pubnub.bind('keyup', chatIn, function(e) {
@@ -110,6 +99,11 @@ pubnub.bind('keyup', chatIn, function(e) {
       chatIn.value = '';
     }
 });
+
+function addChatBubble(className, text) {
+  chatOut.innerHTML = chatOut.innerHTML + '<p class="' +  className + '">' + text + '</p>';
+  chatOut.scrollTop = chatOut.scrollHeight;
+}
 
 
 // MARK: - Maps
@@ -140,7 +134,6 @@ function initMap() {
   // }
 }
 
-
 function addInfoWindow(pos, content) {
   var infoWindow = new google.maps.InfoWindow({map: map});
   infoWindow.setPosition(pos);
@@ -163,7 +156,72 @@ function smoothZoom (max, cnt) {
     }
 }
 
-$(function() {
-  login();
+
+// MARK: - For demo
+
+function addMapMarkersForDemo() {
+  if (isHost) {
+    addInfoWindow({ lat: 37.374804, lng: 126.667955 }, "신고자 위치");
+  } else {
+    addInfoWindow({ lat: 37.390786, lng: 126.651902 }, "송도 119 안전센터");
+  }
+}
+
+function addConnectedMessageForDemo() {
+  if (isHost) {
+    addChatBubble('them', '신고자 010-0601-0811 연결되었습니다.<br><b>화상전화 연결중..</b>');
+  } else {
+    addChatBubble('them', '송도 119 안전센터에 연결되었습니다.<br><b>화상전화 연결중..</b>');
+  }
+}
+
+function addLocationDefinedMessageForDemo() {
+  setTimeout(function() {
+    addChatBubble((isHost ? 'me' : 'them'), '<b>신고자 위치 파악 완료</b><br>인천광역시 송도문화로 119, 인천글로벌캠퍼스체육관');
+  }, 1000);
+}
+
+function addGoingMessageForDemo() {
+  var now = new Date();
+  addChatBubble((isHost ? 'me' : 'them'), '<b>송도 119 안전센터 구조대 출발</b><br>' +
+    '현재시각: ' + now.getHours() + '시 ' + now.getMinutes() + '분 / 도착 예상시간: 5분');
+}
+
+function videoTemplate(fileName) {
+  return '<video id="my-video" class="video-js" controls preload="auto" width="200" height="130" ' +
+    'poster="./img/' + fileName + '.jpg" data-setup="{}">' +
+    '<source src="./img/' + fileName + '.mp4" type="video/mp4">' +
+  '</video>'
+}
+
+
+// MARK: - Events
+
+$videoBox.on('click', '#status', function() {
+  phone.hangup();
+  setVideoStatus('#FFCF15');
 });
+
+$('#chat-buttons button').click(function() {
+  var name = $(this).attr('id');
+
+  if (name == 'chat-going') {
+    return addGoingMessageForDemo();
+  }
+
+  // Otherwise, Videos
+  addChatBubble((isHost ? 'me' : 'them'), '구조대가 도착하기 전 응급처치가 필요합니다.<br>' +
+    '아래 비디오를 참고하시어 응급처치를 해주세요.');
+  addChatBubble((isHost ? 'me' : 'them'), videoTemplate(name));
+});
+
+
+// MARK: - Run!
+
+if (!isHost) { // Admin only interface
+  $('.chat-buttons').hide();
+}
+
+login();
+addConnectedMessageForDemo();
 
