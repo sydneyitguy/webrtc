@@ -12,7 +12,7 @@ function login() {
       number: isHost ? 'host' : 'guest',
       publish_key: PUBNUB_PUBLISH_KEY,
       subscribe_key: PUBNUB_SUBSCRIBE_KEY,
-      ssl : (('https:' == document.location.protocol) ? true : false)
+      ssl: (('https:' == document.location.protocol) ? true : false)
   });
   phone.ready(function() {
     $statusDot.css('background-color', 'green');
@@ -50,7 +50,8 @@ var chatOut = PUBNUB.$('chat-out')
 
 var pubnub = PUBNUB.init({
   publish_key: PUBNUB_PUBLISH_KEY,
-  subscribe_key: PUBNUB_SUBSCRIBE_KEY
+  subscribe_key: PUBNUB_SUBSCRIBE_KEY,
+  ssl: (('https:' == document.location.protocol) ? true : false)
 });
 
 pubnub.ready(function() {
