@@ -1,12 +1,17 @@
-var $videoOut = $('#vid-box');
+var PUBNUB_SUBSCRIBE_KEY = 'sub-c-37e5c210-7107-11e6-91d9-02ee2ddab7fe';
+var PUBNUB_PUBLISH_KEY = 'pub-c-99bfe32b-04e0-4067-961a-f28410406a6e';
+
+// MARK: - WebRTC
+
+var $videoOut = $('#vid-chatOut');
 var $statusDot = $('#status');
 var isHost = !!getURLParam('host');
 
 function login() {
   window.phone = PHONE({
-      number        : isHost ? 'host' : 'guest',
-      publish_key   : 'pub-c-99bfe32b-04e0-4067-961a-f28410406a6e',
-      subscribe_key : 'sub-c-37e5c210-7107-11e6-91d9-02ee2ddab7fe',
+      number: isHost ? 'host' : 'guest',
+      publish_key: PUBNUB_PUBLISH_KEY,
+      subscribe_key: PUBNUB_SUBSCRIBE_KEY,
       ssl : (('https:' == document.location.protocol) ? true : false)
   });
   phone.ready(function() {
@@ -34,4 +39,37 @@ function makeCall() {
 
 $(function() {
   // login();
+});
+
+
+// MARK: - Chatting
+
+var chatOut = PUBNUB.$('chat-out')
+  , chatIn = PUBNUB.$('chat-in')
+  , channel = 'chat';
+
+var pubnub = PUBNUB.init({
+  publish_key: PUBNUB_PUBLISH_KEY,
+  subscribe_key: PUBNUB_SUBSCRIBE_KEY
+});
+
+pubnub.ready(function() {
+  console.log("READY");
+});
+
+pubnub.subscribe({
+    channel: channel,
+    callback: function(text) {
+      chatOut.innerHTML = chatOut.innerHTML + '<p class="me">' + text+ '</p>';
+      chatOut.scrollTop = chatOut.scrollHeight;
+    }
+});
+pubnub.bind('keyup', chatIn, function(e) {
+    if ((e.keyCode || e.charCode) === 13) {
+      pubnub.publish({
+        channel: channel,
+        message: chatIn.value
+      });
+      chatIn.value = ''
+    }
 });
