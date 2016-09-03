@@ -10,7 +10,7 @@ var PUBNUB_PUBLISH_KEY = 'pub-c-99bfe32b-04e0-4067-961a-f28410406a6e';
 
 // MARK: - WebRTC
 
-var $videoOut = $('#vid-chatOut');
+var $videoBox = $('#vid-box');
 var $statusDot = $('#status');
 var isHost = !!getURLParam('host');
 
@@ -36,11 +36,11 @@ function login() {
   phone.receive(function(session){
       session.connected(function(session) {
         console.log('<-- Call received');
-        $videoOut.append(session.video);
+        $videoBox.append(session.video);
       });
       session.ended(function(session) {
         console.log('--> Call ended');
-        $videoOut.val('');
+        $videoBox.find('video').remove();
       });
   });
 
