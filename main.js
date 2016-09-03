@@ -34,8 +34,14 @@ function login() {
     }
   });
   phone.receive(function(session){
-      session.connected(function(session) { $videoOut.append(session.video); });
-      session.ended(function(session) { $videoOut.val(''); });
+      session.connected(function(session) {
+        console.log('<-- Call received');
+        $videoOut.append(session.video);
+      });
+      session.ended(function(session) {
+        console.log('--> Call ended');
+        $videoOut.val('');
+      });
   });
 
   return false;
