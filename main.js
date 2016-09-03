@@ -22,6 +22,7 @@ function login() {
       ssl: (('https:' == document.location.protocol) ? true : false)
   });
   phone.ready(function() {
+    console.log('Logged in');
     $statusDot.css('background-color', 'green');
 
     // Make a call automatically if guest login
