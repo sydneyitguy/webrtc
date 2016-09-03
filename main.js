@@ -195,7 +195,7 @@ function addGoingMessageForDemo() {
 }
 
 function videoTemplate(fileName) {
-  return '<video id="my-video" class="video-js" controls preload="auto" width="200" height="130" ' +
+  return '<video class="video-js" controls preload="auto" width="200" height="130" ' +
     'poster="./img/' + fileName + '.jpg" data-setup="{}">' +
     '<source src="./img/' + fileName + '.mp4" type="video/mp4">' +
   '</video>'

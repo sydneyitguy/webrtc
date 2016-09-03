@@ -174,4 +174,8 @@ b {
   .chat-buttons {
     display: none;
   }
+
+  video.video-js {
+    max-width: 100%;
+  }
 }
