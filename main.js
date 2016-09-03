@@ -177,7 +177,7 @@ function addConnectedMessageForDemo() {
 
 function addLocationDefinedMessageForDemo() {
   setTimeout(function() {
-    addChatBubble((isHost ? 'me' : 'them'), '<b>신고자 위치 파악 완료</b><br>인천광역시 송도문화로 119, 인천글로벌캠퍼스체육관');
+    addChatBubble('them', '<b>신고자 위치 파악 완료</b><br>인천광역시 송도문화로 119, 인천글로벌캠퍼스체육관');
   }, 1000);
 }
 
