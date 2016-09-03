@@ -25,19 +25,17 @@ function login() {
     $statusDot.css('background-color', 'green');
 
     // Make a call automatically if guest login
-    makeCall();
+    if (!window.phone) {
+      alert("Login First!");
+    } else {
+      console.log('Calling to: ' + isHost ? 'guest' : 'host');
+      phone.dial(isHost ? 'guest' : 'host');
+    }
   });
   phone.receive(function(session){
       session.connected(function(session) { $videoOut.append(session.video); });
-      session.ended(function(session) { $videoOut.innerHTML=''; });
+      session.ended(function(session) { $videoOut.val(''); });
   });
-
-  return false;
-}
-
-function makeCall() {
-  if (!window.phone) alert("Login First!");
-  else phone.dial(isHost ? 'guest' : 'host');
 
   return false;
 }
