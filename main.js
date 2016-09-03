@@ -25,9 +25,7 @@ function login() {
     $statusDot.css('background-color', 'green');
 
     // Make a call automatically if guest login
-    if (!isHost) {
-      makeCall();
-    }
+    makeCall();
   });
   phone.receive(function(session){
       session.connected(function(session) { $videoOut.append(session.video); });
