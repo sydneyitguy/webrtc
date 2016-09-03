@@ -175,7 +175,7 @@ b {
     display: none;
   }
 
-  video.video-js {
+  video.chat-video {
     max-width: 100%;
   }
 }
