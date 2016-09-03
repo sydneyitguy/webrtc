@@ -17,8 +17,7 @@ b {
   float: left;
   height: 100%;
 }
-.map {
-}
+
 .vid-box {
   background-color: #000;
 }
@@ -168,7 +167,18 @@ b {
 @media screen and (max-width: 480px) {
   .map, .vid-box, .chat {
     width: 100%;
+  }
+
+  .map {
+    max-height: 200px;
+  }
+
+  .vid-box {
     max-height: 260px;
+  }
+
+  .chat {
+    max-height: 320px;
   }
 
   .chat-buttons {

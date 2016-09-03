@@ -115,10 +115,9 @@ function sendChat(text) {
 var map;
 function initMap() {
   console.log('Initialize maps');
-  var isDraggable = $(document).width() > 480 ? true : false;
 
   map = new google.maps.Map(document.getElementById('map'), {
-    draggable: isDraggable,
+    draggable: true,
     center: { lat: 37.4492881, lng: 126.5940125 },
     zoom: 10
   });
@@ -145,21 +144,24 @@ function addInfoWindow(pos, content) {
   var infoWindow = new google.maps.InfoWindow({map: map});
   infoWindow.setPosition(pos);
   infoWindow.setContent(content);
-  map.setCenter(pos);
-  smoothZoom(15, map.getZoom());
+  smoothZoom(15, map.getZoom(), pos);
 }
 
 // the smooth zoom function
-function smoothZoom (max, cnt) {
+function smoothZoom (max, cnt, pos) {
     if (cnt >= max) {
         return;
     }
     else {
         z = google.maps.event.addListener(map, 'zoom_changed', function(event){
             google.maps.event.removeListener(z);
-            smoothZoom(max, cnt + 1);
+            smoothZoom(max, cnt + 1, pos);
         });
-        setTimeout(function(){map.setZoom(cnt)}, 400); // 80ms is what I found to work well on my system -- it might not work well on all systems
+        setTimeout(function(){
+          map.setZoom(cnt);
+          map.setCenter(pos);
+        }, 200);
+
     }
 }
 
