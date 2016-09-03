@@ -89,13 +89,7 @@ pubnub.bind('keyup', chatIn, function(e) {
       }
 
       console.log('--> Message send', chatIn.value);
-      pubnub.publish({
-        channel: channel,
-        message: {
-          isHost: isHost,
-          text: chatIn.value,
-        }
-      });
+      sendChat(chatIn.value);
       chatIn.value = '';
     }
 });
@@ -103,6 +97,16 @@ pubnub.bind('keyup', chatIn, function(e) {
 function addChatBubble(className, text) {
   chatOut.innerHTML = chatOut.innerHTML + '<p class="' +  className + '">' + text + '</p>';
   chatOut.scrollTop = chatOut.scrollHeight;
+}
+
+function sendChat(text) {
+  pubnub.publish({
+    channel: channel,
+    message: {
+      isHost: isHost,
+      text: text,
+    }
+  });
 }
 
 
@@ -186,7 +190,7 @@ function addLocationDefinedMessageForDemo() {
 
 function addGoingMessageForDemo() {
   var now = new Date();
-  addChatBubble((isHost ? 'me' : 'them'), '<b>송도 119 안전센터 구조대 출발</b><br>' +
+  sendChat('<b>송도 119 안전센터 구조대 출발</b><br>' +
     '현재시각: ' + now.getHours() + '시 ' + now.getMinutes() + '분 / 도착 예상시간: 5분');
 }
 
@@ -213,9 +217,8 @@ $('#chat-buttons button').click(function() {
   }
 
   // Otherwise, Videos
-  addChatBubble((isHost ? 'me' : 'them'), '구조대가 도착하기 전 응급처치가 필요합니다.<br>' +
-    '아래 비디오를 참고하시어 응급처치를 해주세요.');
-  addChatBubble((isHost ? 'me' : 'them'), videoTemplate(name));
+  sendChat('구조대가 도착하기 전 응급처치가 필요합니다.<br>아래 비디오를 참고하시어 응급처치를 해주세요.');
+  sendChat(videoTemplate(name));
 });
 
 
