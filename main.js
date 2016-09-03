@@ -54,14 +54,11 @@ var pubnub = PUBNUB.init({
   ssl: (('https:' == document.location.protocol) ? true : false)
 });
 
-pubnub.ready(function() {
-  console.log("READY");
-});
-
 pubnub.subscribe({
     channel: channel,
-    callback: function(text) {
-      chatOut.innerHTML = chatOut.innerHTML + '<p class="me">' + text+ '</p>';
+    callback: function(message) {
+      chatOut.innerHTML = chatOut.innerHTML +
+        '<p class="' + (message.isHost == isHost ? 'me' : 'them') + '">' + message.text + '</p>';
       chatOut.scrollTop = chatOut.scrollHeight;
     }
 });
@@ -69,7 +66,11 @@ pubnub.bind('keyup', chatIn, function(e) {
     if ((e.keyCode || e.charCode) === 13) {
       pubnub.publish({
         channel: channel,
-        message: chatIn.value
+        message: {
+          isHost: isHost,
+          text: chatIn.value,
+        }
+
       });
       chatIn.value = ''
     }
