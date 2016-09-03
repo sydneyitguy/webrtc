@@ -27,9 +27,9 @@ function login() {
 
     // Make a call automatically if guest login
     if (!window.phone) {
-      alert("Login First!");
+      alert('Login First!');
     } else {
-      console.log('Calling to: ' + isHost ? 'guest' : 'host');
+      console.log('Calling to: ' + (isHost ? 'guest' : 'host'));
       phone.dial(isHost ? 'guest' : 'host');
     }
   });
