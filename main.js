@@ -1,3 +1,10 @@
+/**
+ * Emergency video chat support
+ * A Hackathon project - needs to be refactored
+ *
+ * @author: Sebastian Kim
+ */
+
 var PUBNUB_SUBSCRIBE_KEY = 'sub-c-37e5c210-7107-11e6-91d9-02ee2ddab7fe';
 var PUBNUB_PUBLISH_KEY = 'pub-c-99bfe32b-04e0-4067-961a-f28410406a6e';
 
@@ -38,7 +45,7 @@ function makeCall() {
 }
 
 $(function() {
-  // login();
+  login();
 });
 
 
@@ -70,8 +77,7 @@ pubnub.bind('keyup', chatIn, function(e) {
           isHost: isHost,
           text: chatIn.value,
         }
-
       });
-      chatIn.value = ''
+      chatIn.value = '';
     }
 });
