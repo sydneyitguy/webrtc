@@ -1,18 +1,27 @@
-body {
-  margin: 0;
-  background: white;
-  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+@media screen and (min-width: 480px) {
+  .map, .vid-box, .chat {
+    width: 100%;
+    max-width: 480px;
+  }
 }
-.map, .vid-box, .chat-out, .chat-in {
-  width: 100%;
-  max-width: 480px;
+
+html, body {
+  margin: 0;
+  width:100%;
+  height: 100%;
+  background: white;
+  font: 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.map, .vid-box, .chat {
+  position: relative;
+  width: 33.33333333%;
+  display: block;
+  float: left;
+  height: 100%;
 }
 .map {
-  height: auto;
 }
 .vid-box {
-  position: relative;
-  height: 240px;
   background-color: #000;
 }
 .vid-box video {
@@ -21,51 +30,53 @@ body {
 }
 .status {
   position: absolute;
+  cursor: pointer;
   top: 10px;
   right: 10px;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   display: inline-block;
-  background-color: red;
+  background-color: grey;
 }
 
-.chat-out, .chat-in-container {
-  max-width: 478px;
-  display: block;
-  border: 1px solid #ddd;
-}
 .chat-out {
-  padding: 10px 0;
-  height: 260px;
+  height: 80%;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 .chat-in-container {
-  position: relative;
-  margin-top: 2px;
-  margin-bottom: 50px;
-  height: 36px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
+  height: 40px;
+  width: 100%;
+  background-color: #efefef;
 }
 .chat-in-container input {
-  font-size: 16px;
-  width: 95%;
-  height: 100%;
-  padding: 0 5px;
-  outline: none;
+  margin: 0;
   border: 0;
+  font-size: 16px;
+  padding: 0 10px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background-color: #fff;
 }
 .chat-in-container img {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   position: absolute;
-  top: 4px;
+  top: 5px;
   right: 10px;
 }
 
 /* Chat Bubbles */
 .chat-out p {
-  margin: 0 0 0.5em;
+  margin: 0.3em 0 0.3em 0;
   border-radius: 1em;
   padding: 0.5em 1em;
   background: #e5e5ea;
