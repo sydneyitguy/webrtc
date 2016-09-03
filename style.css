@@ -38,6 +38,8 @@ body {
 .chat-out {
   padding: 10px 0;
   height: 260px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .chat-in-container {
   position: relative;
@@ -48,7 +50,7 @@ body {
 .chat-in-container input {
   font-size: 16px;
   width: 95%;
-  height: 30px;
+  height: 100%;
   padding: 0 5px;
   outline: none;
   border: 0;
@@ -70,12 +72,10 @@ body {
   max-width: 75%;
   clear: both;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .chat-out p.them {
   float: left;
-  margin-left: 5px;
+  margin-left: 7px;
 }
 .chat-out p.them::after {
   content: "";
@@ -89,7 +89,7 @@ body {
 }
 .chat-out p.me {
   float: right;
-  margin-right: 5px;
+  margin-right: 7px;
   background-color: #1289fe;
   color: white;
 }
